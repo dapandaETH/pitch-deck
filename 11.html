@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 11 - Roadmap & Execution Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-decoration {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.27;
+        }
+        
+        .orb-1 { width: 440px; height: 440px; background: linear-gradient(135deg, #14b8a6, #06b6d4); top: -115px; right: -75px; }
+        .orb-2 { width: 390px; height: 390px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); bottom: -95px; left: -65px; }
+        
+        .grid-pattern {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.017) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.017) 1px, transparent 1px);
+            background-size: 48px 48px; z-index: 2;
+        }
+        
+        /* Header */
+        .header {
+            flex: 0 0 auto;
+            padding: 34px 60px 18px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .slide-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 43px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        /* Content */
+        .content-wrapper {
+            flex: 1 1 auto;
+            display: flex;
+            gap: 18px;
+            padding: 0 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Phases Container */
+        .phases-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 17px;
+            flex: 1;
+        }
+        
+        .phase-card {
+            border-radius: 18px;
+            padding: 19px 21px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .phase-card:hover { transform: translateY(-5px); }
+        .phase-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3.5px; }
+        
+        .phase-1 { background: linear-gradient(135deg, rgba(20, 184, 166, 0.13), rgba(6, 182, 212, 0.06)); border: 1.5px solid rgba(20, 184, 166, 0.3); }
+        .phase-1::before { background: linear-gradient(90deg, #14b8a6, #06b6d4); }
+        
+        .phase-2 { background: linear-gradient(135deg, rgba(139, 92, 246, 0.13), rgba(167, 139, 250, 0.06)); border: 1.5px solid rgba(139, 92, 246, 0.3); }
+        .phase-2::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+        
+        .phase-3 { background: linear-gradient(135deg, rgba(245, 158, 11, 0.13), rgba(251, 191, 36, 0.06)); border: 1.5px solid rgba(245, 158, 11, 0.3); }
+        .phase-3::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        
+        .phase-4 { background: linear-gradient(135deg, rgba(236, 72, 153, 0.13), rgba(244, 114, 182, 0.06)); border: 1.5px solid rgba(236, 72, 153, 0.3); }
+        .phase-4::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
+        
+        /* Phase Header */
+        .phase-header { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.09); }
+        
+        .phase-number { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.3px; margin-bottom: 5px; }
+        .num-1 { color: #5eead4; }
+        .num-2 { color: #c4b5fd; }
+        .num-3 { color: #fcd34d; }
+        .num-4 { color: #f9a8d4; }
+        
+        .phase-name { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; line-height: 1.25; margin-bottom: 4px; }
+        .name-1 { color: #5eead4; }
+        .name-2 { color: #c4b5fd; }
+        .name-3 { color: #fcd34d; }
+        .name-4 { color: #f9a8d4; }
+        
+        .phase-timeline { font-size: 11.5px; color: #94a3b8; font-weight: 600; }
+        
+        /* Phase Body */
+        .phase-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        
+        .milestone-item { display: flex; align-items: flex-start; gap: 8px; font-size: 11px; line-height: 1.44; color: #cbd5e1; }
+        
+        .bullet-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            margin-top: 5.5px;
+            flex-shrink: 0;
+        }
+        
+        .dot-1 { background: #14b8a6; box-shadow: 0 0 7px rgba(20, 184, 166, 0.55); }
+        .dot-2 { background: #8b5cf6; box-shadow: 0 0 7px rgba(139, 92, 246, 0.55); }
+        .dot-3 { background: #f59e0b; box-shadow: 0 0 7px rgba(245, 158, 11, 0.55); }
+        .dot-4 { background: #ec4899; box-shadow: 0 0 7px rgba(236, 72, 153, 0.55); }
+        
+        /* Target Section */
+        .target-section { margin-top: 11px; padding-top: 11px; border-top: 1px solid rgba(255, 255, 255, 0.09); }
+        .target-label { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.9px; color: #94a3b8; margin-bottom: 5px; }
+        .target-value { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700; }
+        .value-1 { color: #2dd4bf; }
+        .value-2 { color: #a78bfa; }
+        .value-3 { color: #fbbf24; }
+        .value-4 { color: #f472b6; }
+        
+        /* Footer */
+        .footer {
+            flex: 0 0 auto;
+            padding: 17px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .page-number { font-size: 15px; color: #64748b; font-weight: 500; }
+        .presentation-title { font-size: 14px; color: #64748b; font-weight: 400; }
+        
+        @media (max-height: 800px) {
+            .slide-title { font-size: 37px; }
+            .header { padding: 27px 60px 14px; }
+            .phase-card { padding: 16px 18px; }
+            .phase-name { font-size: 14px; }
+            .milestone-item { font-size: 10px; gap: 7px; }
+            .target-value { font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="bg-decoration"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div></div>
+        <div class="grid-pattern"></div>
+        
+        <div class="header"><h1 class="slide-title">Roadmap & Execution Plan</h1></div>
+        
+        <div class="content-wrapper">
+            <!-- Phases Container -->
+            <div class="phases-container">
+                <!-- Phase 1 -->
+                <div class="phase-card phase-1">
+                    <div class="phase-header">
+                        <div class="phase-number num-1">Phase 01</div>
+                        <div class="phase-name name-1">FOUNDATION</div>
+                        <div class="phase-timeline">Q1-Q2 2025</div>
+                    </div>
+                    <div class="phase-body">
+                        <div class="milestone-item"><span class="bullet-dot dot-1"></span><span>Convert first 3 pilot sites (30MW capacity)</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-1"></span><span>Deploy initial 256-H100 cluster</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-1"></span><span>Launch MVP inference platform with Llama 3.1</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-1"></span><span>Onboard 10 design partners (enterprise beta)</span></div>
+                    </div>
+                    <div class="target-section">
+                        <div class="target-label">Target ARR</div>
+                        <div class="target-value value-1">$2M</div>
+                    </div>
+                </div>
+                
+                <!-- Phase 2 -->
+                <div class="phase-card phase-2">
+                    <div class="phase-header">
+                        <div class="phase-number num-2">Phase 02</div>
+                        <div class="phase-name name-2">SCALE</div>
+                        <div class="phase-timeline">Q3-Q4 2025</div>
+                    </div>
+                    <div class="phase-body">
+                        <div class="milestone-item"><span class="bullet-dot dot-2"></span><span>Expand to 10 sites (100MW total)</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-2"></span><span>Add Mistral, Qwen, Gemma support</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-2"></span><span>Launch dedicated leasing program</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-2"></span><span>Achieve SOC2 Type II, GDPR compliance</span></div>
+                    </div>
+                    <div class="target-section">
+                        <div class="target-label">Target ARR • Status</div>
+                        <div class="target-value value-2">$15M • Break-even</div>
+                    </div>
+                </div>
+                
+                <!-- Phase 3 -->
+                <div class="phase-card phase-3">
+                    <div class="phase-header">
+                        <div class="phase-number num-3">Phase 03</div>
+                        <div class="phase-name name-3">GROWTH</div>
+                        <div class="phase-timeline">2026</div>
+                    </div>
+                    <div class="phase-body">
+                        <div class="milestone-item"><span class="bullet-dot dot-3"></span><span>25+ sites operational (250MW+ capacity)</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-3"></span><span>Introduce fine-tuning platform & marketplace</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-3"></span><span>Edge inference nodes in key metro areas</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-3"></span><span>Strategic partnerships with model providers</span></div>
+                    </div>
+                    <div class="target-section">
+                        <div class="target-label">Target ARR • Status</div>
+                        <div class="target-value value-3">$60-80M • Profitable</div>
+                    </div>
+                </div>
+                
+                <!-- Phase 4 -->
+                <div class="phase-card phase-4">
+                    <div class="phase-header">
+                        <div class="phase-number num-4">Phase 04</div>
+                        <div class="phase-name name-4">DOMINANCE</div>
+                        <div class="phase-timeline">2027+</div>
+                    </div>
+                    <div class="phase-body">
+                        <div class="milestone-item"><span class="bullet-dot dot-4"></span><span>50+ sites globally (500MW+ under management)</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-4"></span><span>Proprietary optimizations, potential silicon roadmap</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-4"></span><span>IPO readiness or strategic acquisition target</span></div>
+                        <div class="milestone-item"><span class="bullet-dot dot-4"></span><span>Market leader in open-weight inference</span></div>
+                    </div>
+                    <div class="target-section">
+                        <div class="target-label">Target ARR • Position</div>
+                        <div class="target-value value-4">$200M+ • Leader</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span class="page-number">11 / 12</span>
+            <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>
+        </div>
+    </div>
+</body>
+</html>

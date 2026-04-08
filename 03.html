@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 3 - Global Bitcoin Mining Infrastructure</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.32;
+        }
+        
+        .orb-1 {
+            width: 480px;
+            height: 480px;
+            background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            top: -130px;
+            right: -90px;
+        }
+        
+        .orb-2 {
+            width: 410px;
+            height: 410px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            bottom: -110px;
+            left: -70px;
+        }
+        
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 52px 52px;
+            z-index: 2;
+        }
+        
+        /* Header */
+        .header {
+            flex: 0 0 auto;
+            padding: 40px 60px 24px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .slide-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 46px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+        
+        /* Content Area */
+        .content-wrapper {
+            flex: 1 1 auto;
+            display: flex;
+            padding: 0 60px 28px;
+            gap: 38px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Left Section */
+        .left-section {
+            flex: 0 0 360px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+        
+        .insight-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(20, 184, 166, 0.13));
+            border: 2px solid rgba(139, 92, 246, 0.38);
+            border-radius: 22px;
+            padding: 34px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 18px 55px rgba(139, 92, 246, 0.22);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .insight-icon {
+            width: 76px;
+            height: 76px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #14b8a6 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+            box-shadow: 0 14px 40px rgba(139, 92, 246, 0.45);
+        }
+        
+        .insight-icon svg {
+            width: 42px;
+            height: 42px;
+            fill: white;
+        }
+        
+        .insight-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c4b5fd 0%, #5eead4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        
+        .insight-label {
+            font-size: 17px;
+            color: #cbd5e1;
+            line-height: 1.55;
+            font-weight: 500;
+        }
+        
+        .strategic-card {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.13), rgba(6, 182, 212, 0.08));
+            border: 1px solid rgba(20, 184, 166, 0.28);
+            border-radius: 20px;
+            padding: 26px;
+            backdrop-filter: blur(10px);
+            flex: 1;
+        }
+        
+        .strategic-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #5eead4;
+            text-transform: uppercase;
+            letter-spacing: 1.7px;
+            margin-bottom: 16px;
+        }
+        
+        .strategic-text {
+            font-size: 16px;
+            line-height: 1.68;
+            color: #e2e8f0;
+            font-weight: 400;
+        }
+        
+        .highlight-teal {
+            color: #5eead4;
+            font-weight: 600;
+        }
+        
+        /* Right Section */
+        .right-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .section-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 6px;
+        }
+        
+        .markets-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            flex: 1;
+        }
+        
+        .market-item {
+            background: rgba(30, 41, 59, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 17px;
+            padding: 22px 24px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+        
+        .market-item:hover {
+            border-color: rgba(139, 92, 246, 0.42);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(139, 92, 246, 0.18);
+        }
+        
+        .market-item.featured {
+            grid-column: span 2;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.17), rgba(20, 184, 166, 0.09));
+            border-color: rgba(139, 92, 246, 0.32);
+        }
+        
+        .market-country {
+            font-size: 17px;
+            font-weight: 700;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+        
+        .market-flag { font-size: 24px; }
+        
+        .market-stats {
+            display: flex;
+            align-items: baseline;
+            gap: 11px;
+        }
+        
+        .market-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            color: #a78bfa;
+        }
+        
+        .market-percentage {
+            font-size: 16px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        
+        .market-description {
+            font-size: 13.5px;
+            color: #94a3b8;
+            line-height: 1.47;
+        }
+        
+        .region-tag {
+            display: inline-block;
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 5px 11px;
+            border-radius: 22px;
+            background: rgba(139, 92, 246, 0.22);
+            color: #c4b5fd;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-top: 5px;
+            align-self: flex-start;
+        }
+        
+        /* Footer */
+        .footer {
+            flex: 0 0 auto;
+            padding: 22px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .page-number { font-size: 15px; color: #64748b; font-weight: 500; }
+        .presentation-title { font-size: 14px; color: #64748b; font-weight: 400; }
+        
+        @media (max-height: 800px) {
+            .slide-title { font-size: 40px; }
+            .header { padding: 32px 60px 19px; }
+            .insight-card { padding: 27px; }
+            .insight-number { font-size: 48px; }
+            .market-item { padding: 18px 20px; }
+            .market-number { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="bg-decoration">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+        </div>
+        <div class="grid-pattern"></div>
+        
+        <div class="header">
+            <h1 class="slide-title">Global Bitcoin Mining Infrastructure:<br>Our Foundation</h1>
+        </div>
+        
+        <div class="content-wrapper">
+            <!-- Left Section -->
+            <div class="left-section">
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <div class="insight-number">8,400+</div>
+                    <div class="insight-label">Active Mining Operations<br>Globally</div>
+                </div>
+                
+                <div class="strategic-card">
+                    <div class="strategic-label">Strategic Implication</div>
+                    <div class="strategic-text">
+                        Diversified geographic footprint enables <span class="highlight-teal">low-latency inference deployment</span> across major markets — North America, Europe, and Asia-Pacific.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Section -->
+            <div class="right-section">
+                <div class="section-header">Top Markets by Operational Density</div>
+                
+                <div class="markets-grid">
+                    <div class="market-item featured">
+                        <div class="market-country">
+                            <span class="market-flag">🇺🇸</span> United States
+                            <span class="region-tag">Market Leader</span>
+                        </div>
+                        <div class="market-stats">
+                            <span class="market-number">2,662</span>
+                            <span class="market-percentage">(31.4%)</span>
+                        </div>
+                        <div class="market-description">Dominant market share with extensive infrastructure across multiple states</div>
+                    </div>
+                    
+                    <div class="market-item">
+                        <div class="market-country"><span class="market-flag">🇩🇪</span> Germany</div>
+                        <div class="market-stats">
+                            <span class="market-number">1,235</span>
+                            <span class="market-percentage">(14.57%)</span>
+                        </div>
+                        <div class="region-tag">Europe Leader</div>
+                    </div>
+                    
+                    <div class="market-item">
+                        <div class="market-country"><span class="market-flag">🇫🇷</span> France</div>
+                        <div class="market-stats">
+                            <span class="market-number">625</span>
+                            <span class="market-percentage">(7.37%)</span>
+                        </div>
+                        <div class="region-tag">Western Europe</div>
+                    </div>
+                    
+                    <div class="market-item">
+                        <div class="market-country"><span class="market-flag">🇫🇮</span> Finland</div>
+                        <div class="market-stats">
+                            <span class="market-number">439</span>
+                            <span class="market-percentage">(5.18%)</span>
+                        </div>
+                        <div class="region-tag">Nordic Region</div>
+                    </div>
+                    
+                    <div class="market-item">
+                        <div class="market-country"><span class="market-flag">🇨🇦</span> Canada</div>
+                        <div class="market-stats">
+                            <span class="market-number">383</span>
+                            <span class="market-percentage">(4.52%)</span>
+                        </div>
+                        <div class="region-tag">North America</div>
+                    </div>
+                    
+                    <div class="market-item">
+                        <div class="market-country"><span class="market-flag">🇳🇱</span> Netherlands</div>
+                        <div class="market-stats">
+                            <span class="market-number">351</span>
+                            <span class="market-percentage">(4.14%)</span>
+                        </div>
+                        <div class="region-tag">Western Europe</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span class="page-number">3 / 12</span>
+            <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>
+        </div>
+    </div>
+</body>
+</html>

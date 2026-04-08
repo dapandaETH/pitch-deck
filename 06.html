@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 6 - Hybrid Compute Architecture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-decoration {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.3;
+        }
+        
+        .orb-1 { width: 460px; height: 460px; background: linear-gradient(135deg, #14b8a6, #06b6d4); top: -110px; right: -70px; }
+        .orb-2 { width: 390px; height: 390px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); bottom: -90px; left: -55px; }
+        
+        .grid-pattern {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.017) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.017) 1px, transparent 1px);
+            background-size: 48px 48px; z-index: 2;
+        }
+        
+        /* Header */
+        .header {
+            flex: 0 0 auto;
+            padding: 36px 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .slide-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 44px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        /* Content */
+        .content-wrapper {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding: 0 60px 22px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .subtitle {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 7px;
+        }
+        
+        /* Tiers */
+        .tiers-container { display: flex; gap: 22px; flex: 1; }
+        
+        .tier-card {
+            flex: 1;
+            border-radius: 20px;
+            padding: 24px 26px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tier-card:hover { transform: translateY(-5px); }
+        .tier-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
+        
+        .tier-1 { background: linear-gradient(135deg, rgba(20, 184, 166, 0.13), rgba(6, 182, 212, 0.06)); border: 1.5px solid rgba(20, 184, 166, 0.32); }
+        .tier-1::before { background: linear-gradient(90deg, #14b8a6, #06b6d4); }
+        
+        .tier-2 { background: linear-gradient(135deg, rgba(139, 92, 246, 0.13), rgba(167, 139, 250, 0.06)); border: 1.5px solid rgba(139, 92, 246, 0.32); }
+        .tier-2::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+        
+        .tier-3 { background: linear-gradient(135deg, rgba(245, 158, 11, 0.13), rgba(251, 191, 36, 0.06)); border: 1.5px solid rgba(245, 158, 11, 0.32); }
+        .tier-3::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        
+        .tier-header {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 18px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        }
+        
+        .tier-number {
+            width: 44px;
+            height: 44px;
+            border-radius: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 21px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .num-1 { background: linear-gradient(135deg, #14b8a6, #06b6d4); }
+        .num-2 { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        .num-3 { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        
+        .tier-title-group { flex: 1; }
+        .tier-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; line-height: 1.25; margin-bottom: 3px; }
+        .name-1 { color: #5eead4; }
+        .name-2 { color: #c4b5fd; }
+        .name-3 { color: #fcd34d; }
+        .tier-subtitle { font-size: 12.5px; color: #94a3b8; font-weight: 500; }
+        
+        .tier-content { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+        
+        .content-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            font-size: 13px;
+            line-height: 1.48;
+            color: #cbd5e1;
+        }
+        
+        .item-bullet {
+            width: 5.5px;
+            height: 5.5px;
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+        
+        .bullet-1 { background: #14b8a6; box-shadow: 0 0 7px rgba(20, 184, 166, 0.55); }
+        .bullet-2 { background: #8b5cf6; box-shadow: 0 0 7px rgba(139, 92, 246, 0.55); }
+        .bullet-3 { background: #f59e0b; box-shadow: 0 0 7px rgba(245, 158, 11, 0.55); }
+        .item-text strong { color: #e2e8f0; font-weight: 600; }
+        
+        /* Flow Indicator */
+        .flow-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 13px;
+            padding: 13px 0;
+            margin-top: 5px;
+        }
+        
+        .flow-arrow { color: #64748b; font-size: 21px; }
+        .flow-label { font-size: 12px; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 1.1px; }
+        
+        /* Footer */
+        .footer {
+            flex: 0 0 auto;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .page-number { font-size: 15px; color: #64748b; font-weight: 500; }
+        .presentation-title { font-size: 14px; color: #64748b; font-weight: 400; }
+        
+        @media (max-height: 800px) {
+            .slide-title { font-size: 38px; }
+            .header { padding: 29px 60px 16px; }
+            .tier-card { padding: 20px 22px; }
+            .tier-header { margin-bottom: 14px; padding-bottom: 12px; }
+            .tier-name { font-size: 16px; }
+            .content-item { font-size: 12px; gap: 9px; }
+            .tiers-container { gap: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="bg-decoration"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div></div>
+        <div class="grid-pattern"></div>
+        
+        <div class="header"><h1 class="slide-title">Our Solution: Hybrid Compute Architecture</h1></div>
+        
+        <div class="content-wrapper">
+            <div class="subtitle">Three-Tier Infrastructure Model</div>
+            
+            <div class="tiers-container">
+                <!-- Tier 1 -->
+                <div class="tier-card tier-1">
+                    <div class="tier-header">
+                        <div class="tier-number num-1">1</div>
+                        <div class="tier-title-group">
+                            <div class="tier-name name-1">FOUNDATION</div>
+                            <div class="tier-subtitle">Existing Assets</div>
+                        </div>
+                    </div>
+                    <div class="tier-content">
+                        <div class="content-item"><span class="item-bullet bullet-1"></span><span class="item-text"><strong>Repurpose mining data centers</strong> (power: 10MW-100MW per site)</span></div>
+                        <div class="content-item"><span class="item-bullet bullet-1"></span><span class="item-text"><strong>Leverage existing cooling systems</strong> (immersion/direct liquid ready)</span></div>
+                        <div class="content-item"><span class="item-bullet bullet-1"></span><span class="item-text"><strong>Utilize grid connections</strong> and redundancy systems</span></div>
+                        <div class="content-item"><span class="item-bullet bullet-1"></span><span class="item-text"><strong>Retain security protocols</strong> and physical infrastructure</span></div>
+                    </div>
+                </div>
+                
+                <!-- Tier 2 -->
+                <div class="tier-card tier-2">
+                    <div class="tier-header">
+                        <div class="tier-number num-2">2</div>
+                        <div class="tier-title-group">
+                            <div class="tier-name name-2">ACCELERATION</div>
+                            <div class="tier-subtitle">GPU Clusters</div>
+                        </div>
+                    </div>
+                    <div class="tier-content">
+                        <div class="content-item"><span class="item-bullet bullet-2"></span><span class="item-text"><strong>Deploy NVIDIA H100/B200 clusters</strong> for inference workloads</span></div>
+                        <div class="content-item"><span class="item-bullet bullet-2"></span><span class="item-text"><strong>Optimize for open-weight model serving</strong> (vLLM, TGI, TensorRT-LLM)</span></div>
+                        <div class="content-item"><span class="item-bullet bullet-2"></span><span class="item-text"><strong>Multi-tenant isolation</strong> with enterprise-grade SLAs</span></div>
+                        <div class="content-item"><span class="item-bullet bullet-2"></span><span class="item-text"><strong>Auto-scaling</strong> based on demand patterns</span></div>
+                    </div>
+                </div>
+                
+                <!-- Tier 3 -->
+                <div class="tier-card tier-3">
+                    <div class="tier-header">
+                        <div class="tier-number num-3">3</div>
+                        <div class="tier-title-group">
+                            <div class="tier-name name-3">INTELLIGENCE</div>
+                            <div class="tier-subtitle">Software Layer</div>
+                        </div>
+                    </div>
+                    <div class="tier-content">
+                        <div class="content-item"><span class="item-bullet bullet-3"></span><span class="item-text"><strong>Model marketplace</strong> (Llama 3.1, Mixtral, Qwen2, Gemma)</span></div>
+                        <div class="content-item"><span class="item-bullet bullet-3"></span><span class="item-text"><strong>API gateway</strong> with rate limiting, caching, batching</span></div>
+                        <div class="content-item"><span class="item-bullet bullet-3"></span><span class="item-text"><strong>Fine-tuning-as-a-service</strong> on customer data</span></div>
+                        <div class="content-item"><span class="item-bullet bullet-3"></span><span class="item-text"><strong>Monitoring dashboard</strong>, observability, cost optimization</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flow-indicator">
+                <span class="flow-label">Infrastructure</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-label">Compute</span>
+                <span class="flow-arrow">→</span>
+                <span class="flow-label">Intelligence</span>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span class="page-number">6 / 12</span>
+            <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>
+        </div>
+    </div>
+</body>
+</html>

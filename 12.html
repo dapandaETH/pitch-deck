@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 12 - The Ask & Investment Opportunity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-decoration {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(95px);
+            opacity: 0.3;
+        }
+        
+        .orb-1 { width: 480px; height: 480px; background: linear-gradient(135deg, #8b5cf6, #14b8a6); top: -130px; right: -90px; }
+        .orb-2 { width: 420px; height: 420px; background: linear-gradient(135deg, #14b8a6, #06b6d4); bottom: -110px; left: -75px; }
+        
+        .grid-pattern {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+            background-size: 52px 52px; z-index: 2;
+        }
+        
+        /* Header */
+        .header {
+            flex: 0 0 auto;
+            padding: 36px 60px 19px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .slide-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 44px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        /* Content */
+        .content-wrapper {
+            flex: 1 1 auto;
+            display: flex;
+            gap: 24px;
+            padding: 0 60px 21px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Left Section */
+        .left-section { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+        
+        /* Funding Card */
+        .funding-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(20, 184, 166, 0.13));
+            border: 2px solid rgba(139, 92, 246, 0.42);
+            border-radius: 20px;
+            padding: 26px 28px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            box-shadow: 0 18px 55px rgba(139, 92, 246, 0.28);
+        }
+        
+        .funding-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #c4b5fd;
+            text-transform: uppercase;
+            letter-spacing: 1.7px;
+            margin-bottom: 12px;
+        }
+        
+        .funding-amount {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 56px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c4b5fd, #5eead4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        .funding-type { font-size: 16px; color: #94a3b8; margin-top: 7px; font-weight: 500; }
+        
+        /* Proceeds Card */
+        .proceeds-card {
+            background: rgba(30, 41, 59, 0.55);
+            border: 1.5px solid rgba(255, 255, 255, 0.09);
+            border-radius: 18px;
+            padding: 20px 23px;
+            backdrop-filter: blur(8px);
+            flex: 1;
+        }
+        
+        .proceeds-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #c4b5fd;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            margin-bottom: 16px;
+        }
+        
+        .proceeds-item { display: flex; align-items: center; gap: 13px; margin-bottom: 13px; }
+        
+        .proceeds-bar-wrapper {
+            flex: 1;
+            height: 26px;
+            background: rgba(51, 65, 85, 0.45);
+            border-radius: 9px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .proceeds-bar {
+            height: 100%;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 11px;
+            transition: width 0.9s ease;
+        }
+        
+        .bar-1 { background: linear-gradient(90deg, #8b5cf6, #a78bfa); width: 70%; }
+        .bar-2 { background: linear-gradient(90deg, #14b8a6, #06b6d4); width: 16%; }
+        .bar-3 { background: linear-gradient(90deg, #f59e0b, #fbbf24); width: 10%; }
+        .bar-4 { background: linear-gradient(90deg, #ec4899, #f472b6); width: 4%; }
+        
+        .bar-label { font-size: 11.5px; font-weight: 600; color: #ffffff; }
+        .bar-percentage { font-size: 11.5px; font-weight: 700; color: rgba(255, 255, 255, 0.92); }
+        
+        /* Traction Card */
+        .traction-card {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.14), rgba(22, 163, 74, 0.07));
+            border: 1.5px solid rgba(34, 197, 94, 0.3);
+            border-radius: 18px;
+            padding: 18px 22px;
+            backdrop-filter: blur(8px);
+        }
+        
+        .traction-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #86efac;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            margin-bottom: 13px;
+        }
+        
+        .traction-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        
+        .traction-item { display: flex; align-items: flex-start; gap: 9px; font-size: 11.5px; line-height: 1.46; color: #cbd5e1; }
+        
+        .check-icon {
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+        
+        .check-icon svg { width: 11px; height: 11px; fill: white; }
+        
+        /* Right Section */
+        .right-section { flex: 1; display: flex; flex-direction: column; gap: 16px; }
+        
+        /* Highlights Card */
+        .highlights-card {
+            background: rgba(30, 41, 59, 0.55);
+            border: 1.5px solid rgba(255, 255, 255, 0.09);
+            border-radius: 18px;
+            padding: 22px 24px;
+            backdrop-filter: blur(8px);
+            flex: 1;
+        }
+        
+        .highlights-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #c4b5fd;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            margin-bottom: 16px;
+        }
+        
+        .highlight-list { display: flex; flex-direction: column; gap: 11px; }
+        
+        .highlight-item { display: flex; align-items: flex-start; gap: 11px; font-size: 12.5px; line-height: 1.47; color: #cbd5e1; }
+        
+        .highlight-bullet {
+            width: 6.5px;
+            height: 6.5px;
+            background: linear-gradient(135deg, #8b5cf6, #14b8a6);
+            border-radius: 50%;
+            margin-top: 6.5px;
+            flex-shrink: 0;
+            box-shadow: 0 0 9px rgba(139, 92, 246, 0.55);
+        }
+        
+        .highlight-text strong { color: #e2e8f0; font-weight: 600; }
+        
+        /* CTA Card */
+        .cta-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.22), rgba(20, 184, 166, 0.16));
+            border: 2px solid rgba(139, 92, 246, 0.48);
+            border-radius: 18px;
+            padding: 23px 26px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            box-shadow: 0 15px 45px rgba(139, 92, 246, 0.32);
+        }
+        
+        .cta-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 19px;
+            font-weight: 600;
+            line-height: 1.53;
+            background: linear-gradient(135deg, #ffffff, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .contact-info { margin-top: 13px; font-size: 13px; color: #94a3b8; font-weight: 500; }
+        
+        /* Footer */
+        .footer {
+            flex: 0 0 auto;
+            padding: 19px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .page-number { font-size: 15px; color: #64748b; font-weight: 500; }
+        .presentation-title { font-size: 14px; color: #64748b; font-weight: 400; }
+        
+        @media (max-height: 800px) {
+            .slide-title { font-size: 38px; }
+            .header { padding: 29px 60px 15px; }
+            .funding-amount { font-size: 48px; }
+            .proceeds-card { padding: 17px 20px; }
+            .highlights-card { padding: 19px 21px; }
+            .highlight-item { font-size: 11.5px; }
+            .cta-card { padding: 19px 22px; }
+            .cta-text { font-size: 17px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="bg-decoration"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div></div>
+        <div class="grid-pattern"></div>
+        
+        <div class="header"><h1 class="slide-title">The Ask & Investment Opportunity</h1></div>
+        
+        <div class="content-wrapper">
+            <!-- Left Section -->
+            <div class="left-section">
+                <!-- Funding Card -->
+                <div class="funding-card">
+                    <div class="funding-label">Funding Requirement</div>
+                    <div class="funding-amount">$50M</div>
+                    <div class="funding-type">Series A</div>
+                </div>
+                
+                <!-- Use of Proceeds -->
+                <div class="proceeds-card">
+                    <div class="proceeds-title">Use of Proceeds</div>
+                    <div class="proceeds-item">
+                        <div class="proceeds-bar-wrapper">
+                            <div class="proceeds-bar bar-1">
+                                <span class="bar-label">Infrastructure & GPU Procurement</span>
+                                <span class="bar-percentage">70%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="proceeds-item">
+                        <div class="proceeds-bar-wrapper">
+                            <div class="proceeds-bar bar-2">
+                                <span class="bar-label">Platform Development & Engineering</span>
+                                <span class="bar-percentage">16%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="proceeds-item">
+                        <div class="proceeds-bar-wrapper">
+                            <div class="proceeds-bar bar-3">
+                                <span class="bar-label">Sales, Marketing & Partnerships</span>
+                                <span class="bar-percentage">10%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="proceeds-item">
+                        <div class="proceeds-bar-wrapper">
+                            <div class="proceeds-bar bar-4">
+                                <span class="bar-label">Working Capital & Operations</span>
+                                <span class="bar-percentage">4%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Traction Card -->
+                <div class="traction-card">
+                    <div class="traction-title">Traction To Date</div>
+                    <div class="traction-grid">
+                        <div class="traction-item">
+                            <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                            <span><strong>8 LOIs</strong> from enterprise customers ($12M potential)</span>
+                        </div>
+                        <div class="traction-item">
+                            <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                            <span><strong>3 partnerships</strong> signed (45MW capacity secured)</span>
+                        </div>
+                        <div class="traction-item">
+                            <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                            <span><strong>Technical validation</strong> complete (benchmark parity)</span>
+                        </div>
+                        <div class="traction-item">
+                            <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                            <span><strong>25 FTE team</strong> (ex-Google, Meta, CoreWeave, Marathon)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Section -->
+            <div class="right-section">
+                <!-- Highlights Card -->
+                <div class="highlights-card">
+                    <div class="highlights-title">Investment Highlights</div>
+                    <div class="highlight-list">
+                        <div class="highlight-item">
+                            <span class="highlight-bullet"></span>
+                            <span class="highlight-text"><strong>Massive market timing:</strong> AI inference + crypto pivot convergence creating unprecedented opportunity</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-bullet"></span>
+                            <span class="highlight-text"><strong>Asset-heavy moats:</strong> Owned infrastructure extremely difficult for competitors to replicate</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-bullet"></span>
+                            <span class="highlight-text"><strong>Proven unit economics:</strong> Clear path to profitability with attractive IRR (45-65%)</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-bullet"></span>
+                            <span class="highlight-text"><strong>Experienced team:</strong> Dual-domain expertise in both crypto operations and AI infrastructure</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="highlight-bullet"></span>
+                            <span class="highlight-text"><strong>ESG narrative:</strong> Repurposing crypto assets for productive AI compute — positive environmental story</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CTA Card -->
+                <div class="cta-card">
+                    <div class="cta-text">Let's build the infrastructure<br>for the open AI future together.</div>
+                    <div class="contact-info">📧 investor@company.ai • 📞 Contact Investor Relations</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span class="page-number">12 / 12</span>
+            <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 8 - Target Market Segments</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-decoration {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.27;
+        }
+        
+        .orb-1 { width: 440px; height: 440px; background: linear-gradient(135deg, #14b8a6, #06b6d4); top: -115px; right: -75px; }
+        .orb-2 { width: 390px; height: 390px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); bottom: -95px; left: -65px; }
+        
+        .grid-pattern {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.017) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.017) 1px, transparent 1px);
+            background-size: 48px 48px; z-index: 2;
+        }
+        
+        /* Header */
+        .header {
+            flex: 0 0 auto;
+            padding: 36px 60px 19px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .slide-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 44px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        /* Content */
+        .content-wrapper {
+            flex: 1 1 auto;
+            display: flex;
+            gap: 22px;
+            padding: 0 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Segments Grid */
+        .segments-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 17px;
+        }
+        
+        .segment-card {
+            border-radius: 18px;
+            padding: 22px 24px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .segment-card:hover { transform: translateY(-4px); }
+        .segment-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3.5px; }
+        
+        .segment-1 { background: linear-gradient(135deg, rgba(139, 92, 246, 0.14), rgba(167, 139, 250, 0.07)); border: 1.5px solid rgba(139, 92, 246, 0.3); }
+        .segment-1::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+        
+        .segment-2 { background: linear-gradient(135deg, rgba(20, 184, 166, 0.14), rgba(6, 182, 212, 0.07)); border: 1.5px solid rgba(20, 184, 166, 0.3); }
+        .segment-2::before { background: linear-gradient(90deg, #14b8a6, #06b6d4); }
+        
+        .segment-3 { background: linear-gradient(135deg, rgba(245, 158, 11, 0.14), rgba(251, 191, 36, 0.07)); border: 1.5px solid rgba(245, 158, 11, 0.3); }
+        .segment-3::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        
+        .segment-4 { background: linear-gradient(135deg, rgba(236, 72, 153, 0.14), rgba(244, 114, 182, 0.07)); border: 1.5px solid rgba(236, 72, 153, 0.3); }
+        .segment-4::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
+        
+        /* Segment Header */
+        .segment-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        }
+        
+        .segment-title-group { flex: 1; }
+        .segment-number { font-size: 11.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 1.1px; margin-bottom: 4px; }
+        .segment-name { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; line-height: 1.25; }
+        .name-1 { color: #c4b5fd; }
+        .name-2 { color: #5eead4; }
+        .name-3 { color: #fcd34d; }
+        .name-4 { color: #f9a8d4; }
+        
+        .segment-percentage {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-left: 13px;
+        }
+        
+        .pct-1 { color: #a78bfa; }
+        .pct-2 { color: #2dd4bf; }
+        .pct-3 { color: #fbbf24; }
+        .pct-4 { color: #f472b6; }
+        
+        /* Segment Body */
+        .segment-body { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        
+        .segment-detail {
+            font-size: 12px;
+            line-height: 1.47;
+            color: #cbd5e1;
+        }
+        
+        .detail-label { font-weight: 600; color: #e2e8f0; }
+        
+        /* TAM Sidebar */
+        .tam-sidebar {
+            flex: 0 0 240px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .tam-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(20, 184, 166, 0.13));
+            border: 2px solid rgba(139, 92, 246, 0.38);
+            border-radius: 20px;
+            padding: 28px 26px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+            box-shadow: 0 16px 50px rgba(139, 92, 246, 0.27);
+        }
+        
+        .tam-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #c4b5fd;
+            text-transform: uppercase;
+            letter-spacing: 1.7px;
+            margin-bottom: 16px;
+        }
+        
+        .tam-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 52px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c4b5fd, #5eead4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+        
+        .tam-description { font-size: 13px; line-height: 1.58; color: #cbd5e1; }
+        .tam-year { font-weight: 600; color: #5eead4; }
+        
+        /* Footer */
+        .footer {
+            flex: 0 0 auto;
+            padding: 18px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .page-number { font-size: 15px; color: #64748b; font-weight: 500; }
+        .presentation-title { font-size: 14px; color: #64748b; font-weight: 400; }
+        
+        @media (max-height: 800px) {
+            .slide-title { font-size: 38px; }
+            .header { padding: 29px 60px 15px; }
+            .segment-card { padding: 18px 20px; }
+            .segment-name { font-size: 15px; }
+            .segment-percentage { font-size: 29px; }
+            .segment-detail { font-size: 11px; }
+            .tam-value { font-size: 44px; }
+            .tam-card { padding: 23px 22px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="bg-decoration"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div></div>
+        <div class="grid-pattern"></div>
+        
+        <div class="header"><h1 class="slide-title">Target Market Segments</h1></div>
+        
+        <div class="content-wrapper">
+            <!-- Segments Grid -->
+            <div class="segments-grid">
+                <!-- Segment 1 -->
+                <div class="segment-card segment-1">
+                    <div class="segment-header">
+                        <div class="segment-title-group">
+                            <div class="segment-number">Segment 01</div>
+                            <div class="segment-name name-1">Enterprise AI Teams</div>
+                        </div>
+                        <div class="segment-percentage pct-1">40%</div>
+                    </div>
+                    <div class="segment-body">
+                        <div class="segment-detail"><span class="detail-label">Target:</span> Fortune 500 building internal AI capabilities</div>
+                        <div class="segment-detail"><span class="detail-label">Need:</span> Private inference, compliance, customization</div>
+                        <div class="segment-detail"><span class="detail-label">ACV:</span> $500K - $5M annually</div>
+                    </div>
+                </div>
+                
+                <!-- Segment 2 -->
+                <div class="segment-card segment-2">
+                    <div class="segment-header">
+                        <div class="segment-title-group">
+                            <div class="segment-number">Segment 02</div>
+                            <div class="segment-name name-2">AI-Native Startups & Scale-Ups</div>
+                        </div>
+                        <div class="segment-percentage pct-2">30%</div>
+                    </div>
+                    <div class="segment-body">
+                        <div class="segment-detail"><span class="detail-label">Target:</span> Series B+ companies with production workloads</div>
+                        <div class="segment-detail"><span class="detail-label">Need:</span> Cost optimization, reliability, scale</div>
+                        <div class="segment-detail"><span class="detail-label">ACV:</span> $100K - $1M annually</div>
+                    </div>
+                </div>
+                
+                <!-- Segment 3 -->
+                <div class="segment-card segment-3">
+                    <div class="segment-header">
+                        <div class="segment-title-group">
+                            <div class="segment-number">Segment 03</div>
+                            <div class="segment-name name-3">Government & Research</div>
+                        </div>
+                        <div class="segment-percentage pct-3">15%</div>
+                    </div>
+                    <div class="segment-body">
+                        <div class="segment-detail"><span class="detail-label">Target:</span> National AI initiatives, academic institutions</div>
+                        <div class="segment-detail"><span class="detail-label">Need:</span> Sovereignty, security, bulk allocation</div>
+                        <div class="segment-detail"><span class="detail-label">ACV:</span> $1M - $10M (multi-year contracts)</div>
+                    </div>
+                </div>
+                
+                <!-- Segment 4 -->
+                <div class="segment-card segment-4">
+                    <div class="segment-header">
+                        <div class="segment-title-group">
+                            <div class="segment-number">Segment 04</div>
+                            <div class="segment-name name-4">Developer Platform & MCP Providers</div>
+                        </div>
+                        <div class="segment-percentage pct-4">15%</div>
+                    </div>
+                    <div class="segment-body">
+                        <div class="segment-detail"><span class="detail-label">Target:</span> AI tooling companies, agent frameworks</div>
+                        <div class="segment-detail"><span class="detail-label">Need:</span> API reliability, low latency, global edge</div>
+                        <div class="segment-detail"><span class="detail-label">ACV:</span> $200K - $2M annually</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TAM Sidebar -->
+            <div class="tam-sidebar">
+                <div class="tam-card">
+                    <div class="tam-label">Total Addressable Market</div>
+                    <div class="tam-value">$40B+</div>
+                    <div class="tam-description">Enterprise AI Inference Market by <span class="tam-year">2028</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span class="page-number">8 / 12</span>
+            <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>
+        </div>
+    </div>
+</body>
+</html>

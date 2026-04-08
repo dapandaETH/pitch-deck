@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 4 - Mining Distribution Deep Dive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.27;
+        }
+        
+        .orb-1 {
+            width: 430px;
+            height: 430px;
+            background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            top: -110px;
+            right: 6%;
+        }
+        
+        .orb-2 {
+            width: 380px;
+            height: 380px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            bottom: -90px;
+            left: 6%;
+        }
+        
+        .grid-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.016) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.016) 1px, transparent 1px);
+            background-size: 48px 48px;
+            z-index: 2;
+        }
+        
+        /* Header */
+        .header {
+            flex: 0 0 auto;
+            padding: 36px 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .slide-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 44px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        /* Content Area */
+        .content-wrapper {
+            flex: 1 1 auto;
+            display: flex;
+            gap: 28px;
+            padding: 0 60px 22px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Chart Section */
+        .chart-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: rgba(30, 41, 59, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 20px;
+            padding: 24px 28px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            margin-bottom: 18px;
+        }
+        
+        .chart-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 7.5px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            height: 30px;
+        }
+        
+        .country-name {
+            width: 120px;
+            font-size: 12.5px;
+            font-weight: 500;
+            color: #e2e8f0;
+            flex-shrink: 0;
+            text-align: right;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .bar-wrapper {
+            flex: 1;
+            height: 24px;
+            background: rgba(51, 65, 85, 0.42);
+            border-radius: 7px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bar-fill {
+            height: 100%;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 9px;
+            transition: width 0.9s ease;
+            position: relative;
+        }
+        
+        .bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.11) 50%, transparent 100%);
+        }
+        
+        .bar-value {
+            font-size: 11.5px;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        
+        .region-north-america { background: linear-gradient(90deg, #14b8a6 0%, #06b6d4 100%); }
+        .region-europe { background: linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%); }
+        .region-asia-pacific { background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%); }
+        .region-other { background: linear-gradient(90deg, #ec4899 0%, #f472b6 100%); }
+        
+        .stats-value {
+            width: 75px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-align: left;
+            flex-shrink: 0;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            flex: 0 0 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        
+        .legend-card {
+            background: rgba(30, 41, 59, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 18px;
+            padding: 22px;
+            backdrop-filter: blur(8px);
+        }
+        
+        .legend-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.9px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            margin-bottom: 11px;
+            font-size: 13.5px;
+            color: #cbd5e1;
+        }
+        
+        .legend-color {
+            width: 26px;
+            height: 15px;
+            border-radius: 5px;
+            flex-shrink: 0;
+        }
+        
+        .summary-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.17), rgba(20, 184, 166, 0.11));
+            border: 1px solid rgba(139, 92, 246, 0.28);
+            border-radius: 18px;
+            padding: 22px;
+            backdrop-filter: blur(8px);
+            flex: 1;
+        }
+        
+        .summary-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #c4b5fd;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 14px;
+        }
+        
+        .summary-stat { margin-bottom: 16px; }
+        .summary-label { font-size: 13px; color: #94a3b8; margin-bottom: 5px; }
+        
+        .summary-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 30px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #c4b5fd 0%, #5eead4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .summary-insight {
+            font-size: 12.5px;
+            line-height: 1.58;
+            color: #cbd5e1;
+            margin-top: 11px;
+        }
+        
+        /* Footer */
+        .footer {
+            flex: 0 0 auto;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .page-number { font-size: 15px; color: #64748b; font-weight: 500; }
+        .presentation-title { font-size: 14px; color: #64748b; font-weight: 400; }
+        
+        @media (max-height: 800px) {
+            .slide-title { font-size: 38px; }
+            .header { padding: 29px 60px 16px; }
+            .bar-row { height: 26px; }
+            .country-name { width: 108px; font-size: 11.5px; }
+            .bar-fill { height: 20px; }
+            .bar-value { font-size: 10.5px; }
+            .stats-value { width: 68px; font-size: 10.5px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="bg-decoration">
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+        </div>
+        <div class="grid-pattern"></div>
+        
+        <div class="header">
+            <h1 class="slide-title">Mining Distribution Deep Dive: Top 20 Countries</h1>
+        </div>
+        
+        <div class="content-wrapper">
+            <!-- Chart Section -->
+            <div class="chart-section">
+                <div class="chart-title">Global Mining Facility Distribution by Country</div>
+                <div class="chart-container">
+                    <div class="bar-row">
+                        <span class="country-name">🇺🇸 United States</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-north-america" style="width: 31.4%;"><span class="bar-value">31.4%</span></div></div>
+                        <span class="stats-value">2,662</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇩🇪 Germany</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 14.57%;"><span class="bar-value">14.57%</span></div></div>
+                        <span class="stats-value">1,235</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇫🇷 France</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 7.37%;"><span class="bar-value">7.37%</span></div></div>
+                        <span class="stats-value">625</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇫🇮 Finland</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 5.18%;"><span class="bar-value">5.18%</span></div></div>
+                        <span class="stats-value">439</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇨🇦 Canada</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-north-america" style="width: 4.52%;"><span class="bar-value">4.52%</span></div></div>
+                        <span class="stats-value">383</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇳🇱 Netherlands</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 4.14%;"><span class="bar-value">4.14%</span></div></div>
+                        <span class="stats-value">351</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇬🇧 United Kingdom</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 3.48%;"><span class="bar-value">3.48%</span></div></div>
+                        <span class="stats-value">295</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇨🇭 Switzerland</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 2.62%;"><span class="bar-value">2.62%</span></div></div>
+                        <span class="stats-value">222</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇦🇺 Australia</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 2.08%;"><span class="bar-value">2.08%</span></div></div>
+                        <span class="stats-value">176</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇷🇺 Russia</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.86%;"><span class="bar-value">1.86%</span></div></div>
+                        <span class="stats-value">158</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇪🇸 Spain</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.73%;"><span class="bar-value">1.73%</span></div></div>
+                        <span class="stats-value">147</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇰🇷 South Korea</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 1.70%;"><span class="bar-value">1.70%</span></div></div>
+                        <span class="stats-value">144</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇯🇵 Japan</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 1.42%;"><span class="bar-value">1.42%</span></div></div>
+                        <span class="stats-value">120</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇸🇬 Singapore</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 1.40%;"><span class="bar-value">1.40%</span></div></div>
+                        <span class="stats-value">119</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇨🇿 Czech Republic</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.19%;"><span class="bar-value">1.19%</span></div></div>
+                        <span class="stats-value">101</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇸🇪 Sweden</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.17%;"><span class="bar-value">1.17%</span></div></div>
+                        <span class="stats-value">99</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇧🇷 Brazil</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-other" style="width: 1.12%;"><span class="bar-value">1.12%</span></div></div>
+                        <span class="stats-value">95</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇮🇹 Italy</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.00%;"><span class="bar-value">1.00%</span></div></div>
+                        <span class="stats-value">85</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇦🇹 Austria</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 0.94%;"><span class="bar-value">0.94%</span></div></div>
+                        <span class="stats-value">80</span>
+                    </div>
+                    <div class="bar-row">
+                        <span class="country-name">🇵🇱 Poland</span>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 0.73%;"><span class="bar-value">0.73%</span></div></div>
+                        <span class="stats-value">62</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="legend-card">
+                    <div class="legend-title">Regions</div>
+                    <div class="legend-item">
+                        <div class="legend-color region-north-america"></div>
+                        <span>North America</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color region-europe"></div>
+                        <span>Europe</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color region-asia-pacific"></div>
+                        <span>Asia-Pacific</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color region-other"></div>
+                        <span>Other Regions</span>
+                    </div>
+                </div>
+                
+                <div class="summary-card">
+                    <div class="summary-title">Key Metrics</div>
+                    <div class="summary-stat">
+                        <div class="summary-label">Total Facilities</div>
+                        <div class="summary-number">8,480+</div>
+                    </div>
+                    <div class="summary-stat">
+                        <div class="summary-label">Top 3 Markets Share</div>
+                        <div class="summary-number">53.3%</div>
+                    </div>
+                    <div class="summary-insight">
+                        Europe dominates with 12 of top 20 markets, representing strong conversion potential for AI inference deployment.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span class="page-number">4 / 12</span>
+            <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>
+        </div>
+    </div>
+</body>
+</html>

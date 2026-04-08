@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide 7 - Open-Weight Models</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .slide-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-decoration {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.3;
+        }
+        
+        .orb-1 { width: 430px; height: 430px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); top: -110px; left: -65px; }
+        .orb-2 { width: 390px; height: 390px; background: linear-gradient(135deg, #14b8a6, #06b6d4); bottom: -90px; right: -55px; }
+        
+        .grid-pattern {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(rgba(255,255,255,0.017) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.017) 1px, transparent 1px);
+            background-size: 48px 48px; z-index: 2;
+        }
+        
+        /* Header */
+        .header {
+            flex: 0 0 auto;
+            padding: 36px 60px 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .slide-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 44px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        /* Content */
+        .content-wrapper {
+            flex: 1 1 auto;
+            display: flex;
+            gap: 24px;
+            padding: 0 60px 22px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Left Section */
+        .left-section { flex: 1.15; display: flex; flex-direction: column; }
+        
+        .section-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #c4b5fd;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            margin-bottom: 17px;
+        }
+        
+        .advantages-card {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.13), rgba(167, 139, 250, 0.07));
+            border: 1.5px solid rgba(139, 92, 246, 0.3);
+            border-radius: 20px;
+            padding: 24px 28px;
+            backdrop-filter: blur(10px);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+        
+        .advantage-item { display: flex; align-items: flex-start; gap: 13px; }
+        
+        .check-icon {
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+            box-shadow: 0 5px 14px rgba(34, 197, 94, 0.35);
+        }
+        
+        .check-icon svg { width: 15px; height: 15px; fill: white; }
+        
+        .advantage-text { flex: 1; font-size: 13.5px; line-height: 1.53; color: #cbd5e1; }
+        .advantage-label { font-weight: 700; color: #e2e8f0; text-transform: uppercase; font-size: 12px; letter-spacing: 0.9px; margin-bottom: 3px; }
+        
+        /* Right Section */
+        .right-section { flex: 0.95; display: flex; flex-direction: column; gap: 18px; }
+        
+        /* Ecosystem Card */
+        .ecosystem-card {
+            background: linear-gradient(135deg, rgba(20, 184, 166, 0.13), rgba(6, 182, 212, 0.07));
+            border: 1.5px solid rgba(20, 184, 166, 0.3);
+            border-radius: 20px;
+            padding: 22px 26px;
+            backdrop-filter: blur(10px);
+            flex: 1;
+        }
+        
+        .ecosystem-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #5eead4;
+            text-transform: uppercase;
+            letter-spacing: 1.1px;
+            margin-bottom: 16px;
+        }
+        
+        .model-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+        
+        .model-item {
+            background: rgba(30, 41, 59, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 11px;
+            padding: 12px 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .model-item:hover { border-color: rgba(20, 184, 166, 0.42); transform: translateY(-2px); }
+        .model-name { font-size: 13px; font-weight: 600; color: #e2e8f0; margin-bottom: 2px; }
+        .model-detail { font-size: 11px; color: #94a3b8; }
+        
+        /* Performance Card */
+        .performance-card {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.16), rgba(251, 191, 36, 0.09));
+            border: 2px solid rgba(245, 158, 11, 0.38);
+            border-radius: 18px;
+            padding: 21px 26px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 12px 38px rgba(245, 158, 11, 0.22);
+        }
+        
+        .performance-label { font-size: 13px; font-weight: 700; color: #fcd34d; text-transform: uppercase; letter-spacing: 1.3px; margin-bottom: 12px; }
+        
+        .performance-content { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+        .performance-text { font-size: 14px; line-height: 1.57; color: #e2e8f0; flex: 1; }
+        
+        .performance-highlight {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: #0f172a;
+            padding: 11px 20px;
+            border-radius: 13px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .highlight-number { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; line-height: 1; display: block; }
+        .highlight-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; margin-top: 3px; }
+        
+        /* Footer */
+        .footer {
+            flex: 0 0 auto;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .page-number { font-size: 15px; color: #64748b; font-weight: 500; }
+        .presentation-title { font-size: 14px; color: #64748b; font-weight: 400; }
+        
+        @media (max-height: 800px) {
+            .slide-title { font-size: 38px; }
+            .header { padding: 29px 60px 16px; }
+            .advantages-card { padding: 20px 24px; gap: 11px; }
+            .advantage-text { font-size: 12.5px; }
+            .ecosystem-card { padding: 19px 22px; }
+            .model-item { padding: 10px 12px; }
+            .performance-highlight { padding: 9px 17px; }
+            .highlight-number { font-size: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="bg-decoration"><div class="gradient-orb orb-1"></div><div class="gradient-orb orb-2"></div></div>
+        <div class="grid-pattern"></div>
+        
+        <div class="header"><h1 class="slide-title">Open-Weight Models: Our Competitive Moat</h1></div>
+        
+        <div class="content-wrapper">
+            <!-- Left Section -->
+            <div class="left-section">
+                <div class="section-header">Why Open-Source Wins for Enterprise</div>
+                <div class="advantages-card">
+                    <div class="advantage-item">
+                        <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                        <div class="advantage-text">
+                            <div class="advantage-label">Data Sovereignty</div>
+                            Keep proprietary data on-prem/inference center — never send to hyperscalers
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                        <div class="advantage-text">
+                            <div class="advantage-label">Cost Transparency</div>
+                            No per-token markup from vendors — predictable infrastructure costs
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                        <div class="advantage-text">
+                            <div class="advantage-label">Customization</div>
+                            Fine-tune domain-specific models without vendor approval or restrictions
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                        <div class="advantage-text">
+                            <div class="advantage-label">Vendor Independence</div>
+                            Avoid lock-in to OpenAI, Anthropic, Google pricing changes and terms
+                        </div>
+                    </div>
+                    <div class="advantage-item">
+                        <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+                        <div class="advantage-text">
+                            <div class="advantage-label">Compliance Ready</div>
+                            GDPR, HIPAA, SOC2 achievable with controlled environment
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Section -->
+            <div class="right-section">
+                <!-- Ecosystem -->
+                <div class="ecosystem-card">
+                    <div class="ecosystem-title">Supported Model Ecosystem</div>
+                    <div class="model-grid">
+                        <div class="model-item">
+                            <div class="model-name">Meta Llama 3.1</div>
+                            <div class="model-detail">8B / 70B / 405B params</div>
+                        </div>
+                        <div class="model-item">
+                            <div class="model-name">Mistral AI</div>
+                            <div class="model-detail">Mixtral 8x22B, Large</div>
+                        </div>
+                        <div class="model-item">
+                            <div class="model-name">Alibaba Qwen2</div>
+                            <div class="model-detail">Full series support</div>
+                        </div>
+                        <div class="model-item">
+                            <div class="model-name">Google Gemma 2</div>
+                            <div class="model-detail">Latest release</div>
+                        </div>
+                        <div class="model-item" style="grid-column: span 2;">
+                            <div class="model-name">Custom Fine-Tuned Models</div>
+                            <div class="model-detail">Domain-specific models trained on customer data</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Performance -->
+                <div class="performance-card">
+                    <div class="performance-label">Performance Parity</div>
+                    <div class="performance-content">
+                        <div class="performance-text">Within 3-5% of GPT-4 / Claude-3.5 benchmarks at a fraction of the cost</div>
+                        <div class="performance-highlight">
+                            <span class="highlight-number">1/10th</span>
+                            <span class="highlight-label">Cost</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <span class="page-number">7 / 12</span>
+            <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>
+        </div>
+    </div>
+</body>
+</html>
