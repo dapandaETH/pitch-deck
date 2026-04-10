@@ -138,6 +138,14 @@
         
         .proceeds-item { display: flex; align-items: center; gap: 13px; margin-bottom: 13px; }
         
+        .proceeds-label {
+            flex: 0 0 155px;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #e2e8f0;
+            line-height: 1.3;
+        }
+        
         .proceeds-bar-wrapper {
             flex: 1;
             height: 26px;
@@ -145,6 +153,8 @@
             border-radius: 9px;
             overflow: hidden;
             position: relative;
+            display: flex;
+            align-items: center;
         }
         
         .proceeds-bar {
@@ -152,9 +162,10 @@
             border-radius: 9px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-end;
             padding: 0 11px;
             transition: width 0.9s ease;
+            min-width: 40px;
         }
         
         .bar-1 { background: linear-gradient(90deg, #8b5cf6, #a78bfa); width: 70%; }
@@ -162,8 +173,7 @@
         .bar-3 { background: linear-gradient(90deg, #f59e0b, #fbbf24); width: 10%; }
         .bar-4 { background: linear-gradient(90deg, #ec4899, #f472b6); width: 4%; }
         
-        .bar-label { font-size: 11.5px; font-weight: 600; color: #ffffff; }
-        .bar-percentage { font-size: 11.5px; font-weight: 700; color: rgba(255, 255, 255, 0.92); }
+        .bar-percentage { font-size: 11.5px; font-weight: 700; color: #ffffff; }
         
         /* Traction Card */
         .traction-card {
@@ -303,41 +313,41 @@
                 <!-- Funding Card -->
                 <div class="funding-card">
                     <div class="funding-label">Funding Requirement</div>
-                    <div class="funding-amount">$50M</div>
-                    <div class="funding-type">Series A</div>
+                    <div class="funding-amount">$2M</div>
+                    <div class="funding-type">Private Round</div>
                 </div>
                 
                 <!-- Use of Proceeds -->
                 <div class="proceeds-card">
                     <div class="proceeds-title">Use of Proceeds</div>
                     <div class="proceeds-item">
+                        <span class="proceeds-label">Infrastructure & GPU Procurement</span>
                         <div class="proceeds-bar-wrapper">
                             <div class="proceeds-bar bar-1">
-                                <span class="bar-label">Infrastructure & GPU Procurement</span>
                                 <span class="bar-percentage">70%</span>
                             </div>
                         </div>
                     </div>
                     <div class="proceeds-item">
+                        <span class="proceeds-label">Platform Development & Engineering</span>
                         <div class="proceeds-bar-wrapper">
                             <div class="proceeds-bar bar-2">
-                                <span class="bar-label">Platform Development & Engineering</span>
                                 <span class="bar-percentage">16%</span>
                             </div>
                         </div>
                     </div>
                     <div class="proceeds-item">
+                        <span class="proceeds-label">Sales, Marketing & Partnerships</span>
                         <div class="proceeds-bar-wrapper">
                             <div class="proceeds-bar bar-3">
-                                <span class="bar-label">Sales, Marketing & Partnerships</span>
                                 <span class="bar-percentage">10%</span>
                             </div>
                         </div>
                     </div>
                     <div class="proceeds-item">
+                        <span class="proceeds-label">Working Capital & Operations</span>
                         <div class="proceeds-bar-wrapper">
                             <div class="proceeds-bar bar-4">
-                                <span class="bar-label">Working Capital & Operations</span>
                                 <span class="bar-percentage">4%</span>
                             </div>
                         </div>
@@ -362,7 +372,7 @@
                         </div>
                         <div class="traction-item">
                             <div class="check-icon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
-                            <span><strong>25 FTE team</strong> (ex-Google, Meta, CoreWeave, Marathon)</span>
+                            <span><strong>Solid team</strong> (Ex-MovementLabs, Ex-Avalanche)</span>
                         </div>
                     </div>
                 </div>
@@ -400,7 +410,7 @@
                 <!-- CTA Card -->
                 <div class="cta-card">
                     <div class="cta-text">Let's build the infrastructure<br>for the open AI future together.</div>
-                    <div class="contact-info">📧 investor@company.ai • 📞 Contact Investor Relations</div>
+                    <div class="contact-info">📧 ir@openstacks.io • 📞 Contact Investor Relations</div>
                 </div>
             </div>
         </div>
