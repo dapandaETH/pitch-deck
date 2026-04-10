@@ -165,10 +165,6 @@
         .bar-fill {
             height: 100%;
             border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 7px;
             transition: width 0.9s ease;
             position: relative;
         }
@@ -183,14 +179,7 @@
             background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.11) 50%, transparent 100%);
         }
         
-        .bar-value {
-            font-size: 10.5px;
-            font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-            z-index: 1;
-        }
-        
+        .bar-value { display: none; }
         .stats-value {
             width: 65px;
             font-size: 10.5px;
@@ -200,94 +189,10 @@
             flex-shrink: 0;
         }
         
-        .chart-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #94a3b8;
-            text-transform: uppercase;
-            letter-spacing: 1.1px;
-            margin-bottom: 18px;
-        }
-        
-        .chart-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 7.5px;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-        
-        .bar-row {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            height: 30px;
-        }
-        
-        .country-name {
-            width: 120px;
-            font-size: 12.5px;
-            font-weight: 500;
-            color: #e2e8f0;
-            flex-shrink: 0;
-            text-align: right;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .bar-wrapper {
-            flex: 1;
-            height: 24px;
-            background: rgba(51, 65, 85, 0.42);
-            border-radius: 7px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .bar-fill {
-            height: 100%;
-            border-radius: 7px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 9px;
-            transition: width 0.9s ease;
-            position: relative;
-        }
-        
-        .bar-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.11) 50%, transparent 100%);
-        }
-        
-        .bar-value {
-            font-size: 11.5px;
-            font-weight: 700;
-            color: #ffffff;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
-            z-index: 1;
-        }
-        
         .region-north-america { background: linear-gradient(90deg, #14b8a6 0%, #06b6d4 100%); }
         .region-europe { background: linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%); }
         .region-asia-pacific { background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%); }
         .region-other { background: linear-gradient(90deg, #ec4899 0%, #f472b6 100%); }
-        
-        .stats-value {
-            width: 75px;
-            font-size: 11.5px;
-            font-weight: 600;
-            color: #94a3b8;
-            text-align: left;
-            flex-shrink: 0;
-        }
         
         /* Sidebar */
         .sidebar {
@@ -389,7 +294,7 @@
             .bar-row { height: 24px; }
             .country-name { width: 95px; font-size: 11px; }
             .bar-fill { height: 18px; }
-            .bar-value { font-size: 10px; }
+            .bar-value { display: none; }
             .stats-value { width: 60px; font-size: 10px; }
         }
     </style>
@@ -413,102 +318,102 @@
                 <div class="chart-container">
                     <div class="bar-row">
                         <span class="country-name">🇺🇸 United States</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-north-america" style="width: 31.4%;"><span class="bar-value">31.4</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-north-america" style="width: 31.4%;"></div></div>
                         <span class="stats-value">2,662</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇩🇪 Germany</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 14.57%;"><span class="bar-value">14.57</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 14.57%;"></div></div>
                         <span class="stats-value">1,235</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇫🇷 France</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 7.37%;"><span class="bar-value">7.37</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 7.37%;"></div></div>
                         <span class="stats-value">625</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇫🇮 Finland</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 5.18%;"><span class="bar-value">5.18</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 5.18%;"></div></div>
                         <span class="stats-value">439</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇨🇦 Canada</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-north-america" style="width: 4.52%;"><span class="bar-value">4.52</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-north-america" style="width: 4.52%;"></div></div>
                         <span class="stats-value">383</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇳🇱 Netherlands</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 4.14%;"><span class="bar-value">4.14</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 4.14%;"></div></div>
                         <span class="stats-value">351</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇬🇧 United Kingdom</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 3.48%;"><span class="bar-value">3.48</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 3.48%;"></div></div>
                         <span class="stats-value">295</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇨🇭 Switzerland</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 2.62%;"><span class="bar-value">2.62</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 2.62%;"></div></div>
                         <span class="stats-value">222</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇦🇺 Australia</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 2.08%;"><span class="bar-value">2.08</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 2.08%;"></div></div>
                         <span class="stats-value">176</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇷🇺 Russia</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.86%;"><span class="bar-value">1.86</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.86%;"></div></div>
                         <span class="stats-value">158</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇪🇸 Spain</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.73%;"><span class="bar-value">1.73</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.73%;"></div></div>
                         <span class="stats-value">147</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇰🇷 South Korea</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 1.70%;"><span class="bar-value">1.70</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 1.70%;"></div></div>
                         <span class="stats-value">144</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇯🇵 Japan</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 1.42%;"><span class="bar-value">1.42</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 1.42%;"></div></div>
                         <span class="stats-value">120</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇸🇬 Singapore</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 1.40%;"><span class="bar-value">1.40</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-asia-pacific" style="width: 1.40%;"></div></div>
                         <span class="stats-value">119</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇨🇿 Czech Republic</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.19%;"><span class="bar-value">1.19</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.19%;"></div></div>
                         <span class="stats-value">101</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇸🇪 Sweden</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.17%;"><span class="bar-value">1.17</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.17%;"></div></div>
                         <span class="stats-value">99</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇧🇷 Brazil</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-other" style="width: 1.12%;"><span class="bar-value">1.12</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-other" style="width: 1.12%;"></div></div>
                         <span class="stats-value">95</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇮🇹 Italy</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.00%;"><span class="bar-value">1.00</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 1.00%;"></div></div>
                         <span class="stats-value">85</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇦🇹 Austria</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 0.94%;"><span class="bar-value">0.94</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 0.94%;"></div></div>
                         <span class="stats-value">80</span>
                     </div>
                     <div class="bar-row">
                         <span class="country-name">🇵🇱 Poland</span>
-                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 0.73%;"><span class="bar-value">0.73</span></div></div>
+                        <div class="bar-wrapper"><div class="bar-fill region-europe" style="width: 0.73%;"></div></div>
                         <span class="stats-value">62</span>
                     </div>
                 </div>

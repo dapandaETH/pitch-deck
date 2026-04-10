@@ -10,7 +10,7 @@
 
         iframe {
             width: 100%;
-            height: 100%;
+            height: calc(100% - 48px);
             border: none;
             display: block;
         }
@@ -51,6 +51,15 @@
             min-width: 60px;
             text-align: center;
         }
+
+        .nav-bar .home-link {
+            color: #64748b;
+            font-size: 12px;
+            text-decoration: none;
+            margin-left: 24px;
+            transition: color 0.2s;
+        }
+        .nav-bar .home-link:hover { color: #e2e8f0; }
     </style>
 </head>
 <body>
@@ -59,6 +68,7 @@
         <button id="prevBtn" onclick="go(-1)">&#8592; Prev</button>
         <span class="counter" id="counter">1 / 12</span>
         <button id="nextBtn" onclick="go(1)">Next &#8594;</button>
+        <a class="home-link" href="https://dapandaeth.github.io/pitch-deck/" title="View online">&#127760;</a>
     </div>
 
     <script>
