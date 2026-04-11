@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slide 2 - The Convergence Moment</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="0xglobal.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             height: 100vh;
             margin: 0;
             padding: 0;
             overflow: hidden;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            color: #ffffff;
+            background: var(--background);
+            color: var(--foreground);
             display: flex;
             flex-direction: column;
         }
@@ -29,7 +27,6 @@
             overflow: hidden;
         }
         
-        /* Background */
         .bg-decoration {
             position: absolute;
             top: 0;
@@ -44,13 +41,13 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(90px);
-            opacity: 0.3;
+            opacity: 0.06;
         }
         
         .orb-1 {
             width: 450px;
             height: 450px;
-            background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            background: var(--accent-teal-gradient);
             top: -120px;
             right: 8%;
         }
@@ -58,7 +55,7 @@
         .orb-2 {
             width: 380px;
             height: 380px;
-            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            background: var(--accent-purple-gradient);
             bottom: -90px;
             left: 5%;
         }
@@ -70,13 +67,12 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 50px 50px;
             z-index: 2;
         }
         
-        /* Header */
         .header {
             flex: 0 0 auto;
             padding: 30px 50px 18px;
@@ -88,14 +84,10 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 42px;
             font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-heading);
             letter-spacing: -1px;
         }
         
-        /* Content Area */
         .content-wrapper {
             flex: 1 1 auto;
             display: flex;
@@ -109,12 +101,11 @@
         .intro-text {
             text-align: center;
             font-size: 18px;
-            color: #94a3b8;
+            color: var(--text-secondary);
             font-weight: 500;
             letter-spacing: 0.5px;
         }
         
-        /* Two Column Layout */
         .columns-container {
             display: flex;
             gap: 30px;
@@ -128,23 +119,24 @@
             flex-direction: column;
             border-radius: 22px;
             padding: 26px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--card-border);
             transition: transform 0.3s ease;
         }
         
         .column:hover {
             transform: translateY(-5px);
+            border-color: var(--card-border-hover);
+            box-shadow: var(--shadow-md);
         }
         
         .column-left {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.13), rgba(220, 38, 38, 0.05));
-            border-color: rgba(239, 68, 68, 0.22);
+            background: linear-gradient(135deg, var(--accent-red-bg), rgba(220, 38, 38, 0.03));
+            border-color: var(--accent-red-border);
         }
         
         .column-right {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.13), rgba(22, 163, 74, 0.05));
-            border-color: rgba(34, 197, 94, 0.22);
+            background: linear-gradient(135deg, var(--accent-green-bg), rgba(22, 163, 74, 0.03));
+            border-color: var(--accent-green-border);
         }
         
         .column-header {
@@ -165,13 +157,13 @@
         }
         
         .icon-box-crisis {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            box-shadow: 0 12px 35px rgba(239, 68, 68, 0.35);
+            background: var(--accent-red-gradient);
+            box-shadow: var(--shadow-md);
         }
         
         .icon-box-boom {
-            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            box-shadow: 0 12px 35px rgba(34, 197, 94, 0.35);
+            background: var(--accent-green-gradient);
+            box-shadow: var(--shadow-md);
         }
         
         .icon-svg {
@@ -187,8 +179,8 @@
             line-height: 1.3;
         }
         
-        .title-crisis { color: #fca5a5; }
-        .title-boom { color: #86efac; }
+        .title-crisis { color: var(--accent-red); }
+        .title-boom { color: var(--accent-green); }
         
         .column-content {
             flex: 1;
@@ -203,7 +195,7 @@
             gap: 13px;
             font-size: 14.5px;
             line-height: 1.55;
-            color: #cbd5e1;
+            color: var(--text-secondary);
         }
         
         .bullet-dot {
@@ -215,37 +207,34 @@
         }
         
         .dot-red {
-            background: #ef4444;
-            box-shadow: 0 0 10px rgba(239, 68, 68, 0.55);
+            background: var(--accent-red);
         }
         
         .dot-green {
-            background: #22c55e;
-            box-shadow: 0 0 10px rgba(34, 197, 94, 0.55);
+            background: var(--accent-green);
         }
         
-        /* Opportunity Section */
         .opportunity-section {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.17), rgba(20, 184, 166, 0.11));
-            border: 2px solid rgba(139, 92, 246, 0.32);
+            background: linear-gradient(135deg, var(--accent-purple-bg), var(--accent-teal-bg));
+            border: 2px solid var(--accent-purple-border);
             border-radius: 20px;
             padding: 22px 30px;
             display: flex;
             align-items: center;
             gap: 24px;
-            box-shadow: 0 18px 50px rgba(139, 92, 246, 0.22);
+            box-shadow: var(--shadow-md);
         }
         
         .opportunity-icon {
             width: 54px;
             height: 54px;
-            background: linear-gradient(135deg, #8b5cf6 0%, #14b8a6 100%);
+            background: var(--hero-gradient);
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            box-shadow: 0 14px 40px rgba(139, 92, 246, 0.42);
+            box-shadow: var(--shadow-md);
         }
         
         .opportunity-icon svg {
@@ -261,7 +250,7 @@
         .opportunity-label {
             font-size: 13px;
             font-weight: 700;
-            color: #c4b5fd;
+            color: var(--accent-purple);
             text-transform: uppercase;
             letter-spacing: 1.6px;
             margin-bottom: 8px;
@@ -270,36 +259,35 @@
         .opportunity-text {
             font-size: 16px;
             line-height: 1.58;
-            color: #e2e8f0;
+            color: var(--text-body);
             font-weight: 500;
         }
         
         .highlight {
-            color: #a78bfa;
+            color: var(--accent-purple);
             font-weight: 600;
         }
         
-        /* Footer */
         .footer {
             flex: 0 0 auto;
             padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid var(--border);
             position: relative;
             z-index: 10;
         }
         
         .page-number {
             font-size: 15px;
-            color: #64748b;
+            color: var(--text-muted);
             font-weight: 500;
         }
         
         .presentation-title {
             font-size: 14px;
-            color: #64748b;
+            color: var(--text-muted);
             font-weight: 400;
         }
         
@@ -316,24 +304,20 @@
 </head>
 <body>
     <div class="slide-container">
-        <!-- Background -->
         <div class="bg-decoration">
             <div class="gradient-orb orb-1"></div>
             <div class="gradient-orb orb-2"></div>
         </div>
         <div class="grid-pattern"></div>
         
-        <!-- Header -->
         <div class="header">
             <h1 class="slide-title">The Convergence Moment</h1>
         </div>
         
-        <!-- Main Content -->
         <div class="content-wrapper">
             <p class="intro-text">Two Revolutionary Forces Colliding</p>
             
             <div class="columns-container">
-                <!-- Left Column: Bitcoin Mining Crisis -->
                 <div class="column column-left">
                     <div class="column-header">
                         <div class="icon-box icon-box-crisis">
@@ -361,7 +345,6 @@
                     </div>
                 </div>
                 
-                <!-- Right Column: AI Inference Boom -->
                 <div class="column column-right">
                     <div class="column-header">
                         <div class="icon-box icon-box-boom">
@@ -390,7 +373,6 @@
                 </div>
             </div>
             
-            <!-- Opportunity Banner -->
             <div class="opportunity-section">
                 <div class="opportunity-icon">
                     <svg viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
@@ -404,7 +386,6 @@
             </div>
         </div>
         
-        <!-- Footer -->
         <div class="footer">
             <span class="page-number">2 / 12</span>
             <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>

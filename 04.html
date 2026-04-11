@@ -4,22 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slide 4 - Mining Distribution Deep Dive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="0xglobal.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
+            background: var(--background);
+            color: var(--foreground);
         }
-        
+
         .slide-container {
             display: flex;
             flex-direction: column;
@@ -28,7 +20,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .bg-decoration {
             position: absolute;
             top: 0;
@@ -38,63 +30,58 @@
             pointer-events: none;
             z-index: 1;
         }
-        
+
         .gradient-orb {
             position: absolute;
             border-radius: 50%;
             filter: blur(80px);
-            opacity: 0.24;
+            opacity: 0.06;
         }
-        
+
         .orb-1 {
             width: 360px;
             height: 360px;
-            background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            background: var(--accent-teal-gradient);
             top: -90px;
             right: 5%;
         }
-        
+
         .orb-2 {
             width: 320px;
             height: 320px;
-            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            background: var(--accent-purple-gradient);
             bottom: -80px;
             left: 5%;
         }
-        
+
         .grid-pattern {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.016) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.016) 1px, transparent 1px);
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 48px 48px;
             z-index: 2;
         }
-        
-        /* Header */
+
         .header {
             flex: 0 0 auto;
             padding: 24px 50px 14px;
             position: relative;
             z-index: 10;
         }
-        
+
         .slide-title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 36px;
             font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-heading);
             letter-spacing: -0.5px;
         }
-        
-        /* Content Area */
+
         .content-wrapper {
             flex: 1 1 auto;
             display: flex;
@@ -103,28 +90,27 @@
             position: relative;
             z-index: 10;
         }
-        
-/* Chart Section */
+
         .chart-section {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: rgba(30, 41, 59, 0.35);
-            border: 1px solid rgba(255, 255, 255, 0.09);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 16px;
             padding: 18px 22px;
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
         }
-        
+
         .chart-title {
             font-size: 14px;
             font-weight: 600;
-            color: #94a3b8;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 12px;
         }
-        
+
         .chart-container {
             flex: 1;
             display: flex;
@@ -133,42 +119,42 @@
             overflow-y: auto;
             overflow-x: hidden;
         }
-        
+
         .bar-row {
             display: flex;
             align-items: center;
             gap: 10px;
             height: 28px;
         }
-        
+
         .country-name {
             width: 100px;
             font-size: 11.5px;
             font-weight: 500;
-            color: #e2e8f0;
+            color: var(--text-body);
             flex-shrink: 0;
             text-align: right;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        
+
         .bar-wrapper {
             flex: 1;
             height: 20px;
-            background: rgba(51, 65, 85, 0.42);
+            background: var(--muted);
             border-radius: 6px;
             overflow: hidden;
             position: relative;
         }
-        
+
         .bar-fill {
             height: 100%;
             border-radius: 6px;
             transition: width 0.9s ease;
             position: relative;
         }
-        
+
         .bar-fill::after {
             content: '';
             position: absolute;
@@ -176,118 +162,112 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.11) 50%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
         }
-        
+
         .bar-value { display: none; }
         .stats-value {
             width: 65px;
             font-size: 10.5px;
             font-weight: 600;
-            color: #94a3b8;
+            color: var(--text-muted);
             text-align: left;
             flex-shrink: 0;
         }
-        
-        .region-north-america { background: linear-gradient(90deg, #14b8a6 0%, #06b6d4 100%); }
-        .region-europe { background: linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%); }
-        .region-asia-pacific { background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 100%); }
-        .region-other { background: linear-gradient(90deg, #ec4899 0%, #f472b6 100%); }
-        
-        /* Sidebar */
+
+        .region-north-america { background: var(--accent-teal-gradient); }
+        .region-europe { background: var(--accent-purple-gradient); }
+        .region-asia-pacific { background: var(--accent-amber-gradient); }
+        .region-other { background: var(--accent-pink-gradient); }
+
         .sidebar {
             flex: 0 0 240px;
             display: flex;
             flex-direction: column;
             gap: 14px;
         }
-        
+
         .legend-card {
-            background: rgba(30, 41, 59, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.09);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 14px;
             padding: 16px 18px;
-            backdrop-filter: blur(8px);
+            box-shadow: var(--shadow-sm);
         }
-        
+
         .legend-title {
             font-size: 13px;
             font-weight: 700;
-            color: #e2e8f0;
+            color: var(--text-heading);
             margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.8px;
         }
-        
+
         .legend-item {
             display: flex;
             align-items: center;
             gap: 9px;
             margin-bottom: 9px;
             font-size: 12px;
-            color: #cbd5e1;
+            color: var(--text-secondary);
         }
-        
+
         .legend-color {
             width: 22px;
             height: 13px;
             border-radius: 4px;
             flex-shrink: 0;
         }
-        
+
         .summary-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.17), rgba(20, 184, 166, 0.11));
-            border: 1px solid rgba(139, 92, 246, 0.28);
+            background: linear-gradient(135deg, var(--accent-purple-bg), rgba(124, 58, 237, 0.03));
+            border: 1px solid var(--accent-purple-border);
             border-radius: 14px;
             padding: 16px 18px;
-            backdrop-filter: blur(8px);
             flex: 1;
         }
-        
+
         .summary-title {
             font-size: 12px;
             font-weight: 700;
-            color: #c4b5fd;
+            color: var(--accent-purple);
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 10px;
         }
-        
+
         .summary-stat { margin-bottom: 12px; }
-        .summary-label { font-size: 11px; color: #94a3b8; margin-bottom: 3px; }
-        
+        .summary-label { font-size: 11px; color: var(--text-muted); margin-bottom: 3px; }
+
         .summary-number {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 24px;
             font-weight: 700;
-            background: linear-gradient(135deg, #c4b5fd 0%, #5eead4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--accent-purple);
         }
-        
+
         .summary-insight {
             font-size: 11px;
             line-height: 1.5;
-            color: #cbd5e1;
+            color: var(--text-secondary);
             margin-top: 8px;
         }
-        
-        /* Footer */
+
         .footer {
             flex: 0 0 auto;
             padding: 14px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid var(--border);
             position: relative;
             z-index: 10;
         }
-        
-        .page-number { font-size: 13px; color: #64748b; font-weight: 500; }
-        .presentation-title { font-size: 12px; color: #64748b; font-weight: 400; }
-        
+
+        .page-number { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+        .presentation-title { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
         @media (max-height: 850px) {
             .slide-title { font-size: 32px; }
             .header { padding: 20px 50px 12px; }
@@ -306,11 +286,11 @@
             <div class="gradient-orb orb-2"></div>
         </div>
         <div class="grid-pattern"></div>
-        
+
         <div class="header">
             <h1 class="slide-title">Mining Distribution Deep Dive: Top 20 Countries</h1>
         </div>
-        
+
         <div class="content-wrapper">
             <!-- Chart Section -->
             <div class="chart-section">
@@ -418,7 +398,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Sidebar -->
             <div class="sidebar">
                 <div class="legend-card">
@@ -440,7 +420,7 @@
                         <span>Other Regions</span>
                     </div>
                 </div>
-                
+
                 <div class="summary-card">
                     <div class="summary-title">Key Metrics</div>
                     <div class="summary-stat">
@@ -457,7 +437,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="footer">
             <span class="page-number">4 / 12</span>
             <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>

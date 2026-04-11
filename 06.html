@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slide 6 - Hybrid Compute Architecture</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="0xglobal.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -14,8 +14,8 @@
             padding: 0;
             overflow: hidden;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            color: #ffffff;
+            background: var(--background);
+            color: var(--foreground);
             display: flex;
             flex-direction: column;
         }
@@ -39,20 +39,18 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(90px);
-            opacity: 0.3;
         }
         
-        .orb-1 { width: 460px; height: 460px; background: linear-gradient(135deg, #14b8a6, #06b6d4); top: -110px; right: -70px; }
-        .orb-2 { width: 390px; height: 390px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); bottom: -90px; left: -55px; }
+        .orb-1 { width: 460px; height: 460px; background: linear-gradient(135deg, #14b8a6, #06b6d4); top: -110px; right: -70px; opacity: 0.06; }
+        .orb-2 { width: 390px; height: 390px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); bottom: -90px; left: -55px; opacity: 0.06; }
         
         .grid-pattern {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(255,255,255,0.017) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.017) 1px, transparent 1px);
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 48px 48px; z-index: 2;
         }
         
-        /* Header */
         .header {
             flex: 0 0 auto;
             padding: 36px 60px 20px;
@@ -64,14 +62,10 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 44px;
             font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-heading);
             letter-spacing: -1px;
         }
         
-        /* Content */
         .content-wrapper {
             flex: 1 1 auto;
             display: flex;
@@ -86,38 +80,36 @@
             text-align: center;
             font-size: 16px;
             font-weight: 600;
-            color: #94a3b8;
+            color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1.2px;
             margin-bottom: 7px;
         }
         
-        /* Tiers */
         .tiers-container { display: flex; gap: 22px; flex: 1; }
         
         .tier-card {
             flex: 1;
             border-radius: 20px;
             padding: 24px 26px;
-            backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
         }
         
-        .tier-card:hover { transform: translateY(-5px); }
+        .tier-card:hover { transform: translateY(-5px); border-color: var(--card-border-hover); box-shadow: var(--shadow-md); }
         .tier-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; }
         
-        .tier-1 { background: linear-gradient(135deg, rgba(20, 184, 166, 0.13), rgba(6, 182, 212, 0.06)); border: 1.5px solid rgba(20, 184, 166, 0.32); }
-        .tier-1::before { background: linear-gradient(90deg, #14b8a6, #06b6d4); }
+        .tier-1 { background: linear-gradient(135deg, var(--accent-teal-bg), rgba(13, 148, 136, 0.03)); border: 1.5px solid var(--accent-teal-border); }
+        .tier-1::before { background: var(--accent-teal-gradient); }
         
-        .tier-2 { background: linear-gradient(135deg, rgba(139, 92, 246, 0.13), rgba(167, 139, 250, 0.06)); border: 1.5px solid rgba(139, 92, 246, 0.32); }
-        .tier-2::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+        .tier-2 { background: linear-gradient(135deg, var(--accent-purple-bg), rgba(124, 58, 237, 0.03)); border: 1.5px solid var(--accent-purple-border); }
+        .tier-2::before { background: var(--accent-purple-gradient); }
         
-        .tier-3 { background: linear-gradient(135deg, rgba(245, 158, 11, 0.13), rgba(251, 191, 36, 0.06)); border: 1.5px solid rgba(245, 158, 11, 0.32); }
-        .tier-3::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+        .tier-3 { background: linear-gradient(135deg, var(--accent-amber-bg), rgba(217, 119, 6, 0.03)); border: 1.5px solid var(--accent-amber-border); }
+        .tier-3::before { background: var(--accent-amber-gradient); }
         
         .tier-header {
             display: flex;
@@ -125,7 +117,7 @@
             gap: 13px;
             margin-bottom: 18px;
             padding-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+            border-bottom: 1px solid var(--border);
         }
         
         .tier-number {
@@ -141,16 +133,16 @@
             flex-shrink: 0;
         }
         
-        .num-1 { background: linear-gradient(135deg, #14b8a6, #06b6d4); }
-        .num-2 { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-        .num-3 { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .num-1 { background: var(--accent-teal-gradient); color: white; box-shadow: var(--shadow-md); }
+        .num-2 { background: var(--accent-purple-gradient); color: white; box-shadow: var(--shadow-md); }
+        .num-3 { background: var(--accent-amber-gradient); color: white; box-shadow: var(--shadow-md); }
         
         .tier-title-group { flex: 1; }
         .tier-name { font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; line-height: 1.25; margin-bottom: 3px; }
-        .name-1 { color: #5eead4; }
-        .name-2 { color: #c4b5fd; }
-        .name-3 { color: #fcd34d; }
-        .tier-subtitle { font-size: 12.5px; color: #94a3b8; font-weight: 500; }
+        .name-1 { color: var(--accent-teal); }
+        .name-2 { color: var(--accent-purple); }
+        .name-3 { color: var(--accent-amber); }
+        .tier-subtitle { font-size: 12.5px; color: var(--text-secondary); font-weight: 500; }
         
         .tier-content { flex: 1; display: flex; flex-direction: column; gap: 10px; }
         
@@ -160,7 +152,7 @@
             gap: 11px;
             font-size: 13px;
             line-height: 1.48;
-            color: #cbd5e1;
+            color: var(--text-secondary);
         }
         
         .item-bullet {
@@ -171,12 +163,11 @@
             flex-shrink: 0;
         }
         
-        .bullet-1 { background: #14b8a6; box-shadow: 0 0 7px rgba(20, 184, 166, 0.55); }
-        .bullet-2 { background: #8b5cf6; box-shadow: 0 0 7px rgba(139, 92, 246, 0.55); }
-        .bullet-3 { background: #f59e0b; box-shadow: 0 0 7px rgba(245, 158, 11, 0.55); }
-        .item-text strong { color: #e2e8f0; font-weight: 600; }
+        .bullet-1 { background: var(--accent-teal); }
+        .bullet-2 { background: var(--accent-purple); }
+        .bullet-3 { background: var(--accent-amber); }
+        .item-text strong { color: var(--text-body); font-weight: 600; }
         
-        /* Flow Indicator */
         .flow-indicator {
             display: flex;
             align-items: center;
@@ -186,23 +177,22 @@
             margin-top: 5px;
         }
         
-        .flow-arrow { color: #64748b; font-size: 21px; }
-        .flow-label { font-size: 12px; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 1.1px; }
+        .flow-arrow { color: var(--text-muted); font-size: 21px; }
+        .flow-label { font-size: 12px; color: var(--text-muted); font-weight: 500; text-transform: uppercase; letter-spacing: 1.1px; }
         
-        /* Footer */
         .footer {
             flex: 0 0 auto;
             padding: 20px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid var(--border);
             position: relative;
             z-index: 10;
         }
         
-        .page-number { font-size: 15px; color: #64748b; font-weight: 500; }
-        .presentation-title { font-size: 14px; color: #64748b; font-weight: 400; }
+        .page-number { font-size: 15px; color: var(--text-muted); font-weight: 500; }
+        .presentation-title { font-size: 14px; color: var(--text-light); font-weight: 400; }
         
         @media (max-height: 800px) {
             .slide-title { font-size: 38px; }

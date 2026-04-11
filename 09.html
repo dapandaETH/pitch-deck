@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slide 9 - Business Model & Unit Economics</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="0xglobal.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
@@ -14,8 +14,8 @@
             padding: 0;
             overflow: hidden;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            color: #ffffff;
+            background: var(--background);
+            color: var(--foreground);
             display: flex;
             flex-direction: column;
         }
@@ -39,16 +39,16 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(90px);
-            opacity: 0.27;
+            opacity: 0.07;
         }
         
-        .orb-1 { width: 420px; height: 420px; background: linear-gradient(135deg, #14b8a6, #06b6d4); top: -105px; right: -65px; }
-        .orb-2 { width: 380px; height: 380px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); bottom: -95px; left: -55px; }
+        .orb-1 { width: 420px; height: 420px; background: linear-gradient(135deg, var(--accent-teal), #06b6d4); top: -105px; right: -65px; }
+        .orb-2 { width: 380px; height: 380px; background: linear-gradient(135deg, var(--accent-purple), #a78bfa); bottom: -95px; left: -55px; }
         
         .grid-pattern {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(255,255,255,0.017) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.017) 1px, transparent 1px);
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 48px 48px; z-index: 2;
         }
         
@@ -64,10 +64,7 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 44px;
             font-weight: 700;
-            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-heading);
             letter-spacing: -1px;
         }
         
@@ -87,7 +84,7 @@
         .section-label {
             font-size: 15px;
             font-weight: 700;
-            color: #c4b5fd;
+            color: var(--accent-purple);
             text-transform: uppercase;
             letter-spacing: 1.4px;
             margin-bottom: 16px;
@@ -96,17 +93,17 @@
         .revenue-streams { display: flex; flex-direction: column; gap: 14px; flex: 1; }
         
         .stream-card {
-            background: rgba(30, 41, 59, 0.55);
-            border: 1.5px solid rgba(255, 255, 255, 0.09);
+            background: var(--card-bg);
+            border: 1.5px solid var(--border);
             border-radius: 17px;
             padding: 19px 22px;
-            backdrop-filter: blur(8px);
+            box-shadow: var(--shadow-sm);
             transition: all 0.3s ease;
             display: flex;
             gap: 17px;
         }
         
-        .stream-card:hover { border-color: rgba(139, 92, 246, 0.38); transform: translateX(5px); }
+        .stream-card:hover { border-color: var(--card-border-hover); box-shadow: var(--shadow-md); transform: translateX(5px); }
         
         .stream-number {
             width: 42px;
@@ -118,22 +115,23 @@
             font-family: 'Space Grotesk', sans-serif;
             font-size: 19px;
             font-weight: 700;
+            color: #fff;
             flex-shrink: 0;
         }
         
-        .num-1 { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
-        .num-2 { background: linear-gradient(135deg, #14b8a6, #06b6d4); }
-        .num-3 { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+        .num-1 { background: var(--accent-purple-gradient); }
+        .num-2 { background: var(--accent-teal-gradient); }
+        .num-3 { background: var(--accent-amber-gradient); }
         
         .stream-content { flex: 1; display: flex; flex-direction: column; gap: 8px; }
         
         .stream-header { display: flex; justify-content: space-between; align-items: center; }
-        .stream-name { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #e2e8f0; }
-        .stream-share { font-size: 13.5px; font-weight: 600; color: #94a3b8; background: rgba(51, 65, 85, 0.55); padding: 4px 11px; border-radius: 13px; }
+        .stream-name { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: var(--text-body); }
+        .stream-share { font-size: 13.5px; font-weight: 600; color: var(--text-muted); background: var(--secondary); padding: 4px 11px; border-radius: 13px; }
         
         .stream-details { display: flex; flex-direction: column; gap: 5px; }
-        .detail-item { font-size: 12px; color: #94a3b8; line-height: 1.42; }
-        .detail-item strong { color: #cbd5e1; font-weight: 600; }
+        .detail-item { font-size: 12px; color: var(--text-muted); line-height: 1.42; }
+        .detail-item strong { color: var(--text-secondary); font-weight: 600; }
         
         .margin-badge {
             display: inline-block;
@@ -144,46 +142,46 @@
             margin-top: 3px;
         }
         
-        .margin-high { background: rgba(34, 197, 94, 0.22); color: #86efac; }
-        .margin-medium { background: rgba(245, 158, 11, 0.22); color: #fcd34d; }
+        .margin-high { background: var(--accent-green-bg); color: var(--accent-green); border: 1px solid var(--accent-green-border); }
+        .margin-medium { background: var(--accent-amber-bg); color: var(--accent-amber); border: 1px solid var(--accent-amber-border); }
         
         /* Right Section */
         .right-section { flex: 0.88; display: flex; flex-direction: column; }
         
         .unit-economics-card {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.17), rgba(20, 184, 166, 0.11));
-            border: 2px solid rgba(139, 92, 246, 0.32);
+            background: linear-gradient(135deg, var(--accent-purple-bg), var(--accent-teal-bg));
+            border: 2px solid var(--accent-purple-border);
             border-radius: 20px;
             padding: 24px 26px;
-            backdrop-filter: blur(10px);
             flex: 1;
             display: flex;
             flex-direction: column;
         }
         
-        .economics-subtitle { font-size: 13px; color: #94a3b8; margin-bottom: 20px; text-align: center; font-weight: 500; }
+        .economics-subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; text-align: center; font-weight: 500; }
         
         .economics-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; flex: 1; }
         
         .metric-box {
-            background: rgba(15, 23, 42, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
             border-radius: 13px;
             padding: 15px 17px;
+            box-shadow: var(--shadow-sm);
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
         
         .metric-box.full-width { grid-column: span 2; }
-        .metric-label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 7px; font-weight: 600; }
+        .metric-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.9px; margin-bottom: 7px; font-weight: 600; }
         .metric-value { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; line-height: 1.2; }
-        .value-purple { color: #c4b5fd; }
-        .value-teal { color: #5eead4; }
-        .value-green { color: #86efac; }
-        .value-yellow { color: #fcd34d; }
+        .value-purple { color: var(--accent-purple); }
+        .value-teal { color: var(--accent-teal); }
+        .value-green { color: var(--accent-green); }
+        .value-yellow { color: var(--accent-amber); }
         
-        .highlight-metric { background: linear-gradient(135deg, rgba(34, 197, 94, 0.17), rgba(22, 163, 74, 0.09)); border: 1.5px solid rgba(34, 197, 94, 0.32); }
+        .highlight-metric { background: linear-gradient(135deg, var(--accent-green-bg), rgba(22, 163, 74, 0.03)); border: 1.5px solid var(--accent-green-border); }
         
         /* Footer */
         .footer {
@@ -192,13 +190,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid var(--border);
             position: relative;
             z-index: 10;
         }
         
-        .page-number { font-size: 15px; color: #64748b; font-weight: 500; }
-        .presentation-title { font-size: 14px; color: #64748b; font-weight: 400; }
+        .page-number { font-size: 15px; color: var(--text-muted); font-weight: 500; }
+        .presentation-title { font-size: 14px; color: var(--text-muted); font-weight: 400; }
         
         @media (max-height: 800px) {
             .slide-title { font-size: 38px; }

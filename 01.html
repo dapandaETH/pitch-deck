@@ -4,18 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Slide 1 - From Hash to Intelligence</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="0xglobal.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
             height: 100vh;
             margin: 0;
             padding: 0;
             overflow: hidden;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            color: #ffffff;
+            background: var(--background);
+            color: var(--foreground);
             display: flex;
             flex-direction: column;
         }
@@ -29,7 +27,6 @@
             overflow: hidden;
         }
         
-        /* Background Decorations */
         .bg-decoration {
             position: absolute;
             top: 0;
@@ -44,21 +41,21 @@
             position: absolute;
             border-radius: 50%;
             filter: blur(100px);
-            opacity: 0.4;
+            opacity: 0.06;
         }
         
         .orb-1 {
-            width: 600px;
-            height: 600px;
-            background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%);
+            width: 550px;
+            height: 550px;
+            background: var(--accent-teal-gradient);
             top: -200px;
             right: -150px;
         }
         
         .orb-2 {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            width: 450px;
+            height: 450px;
+            background: var(--accent-purple-gradient);
             bottom: -150px;
             left: -100px;
         }
@@ -66,13 +63,12 @@
         .orb-3 {
             width: 350px;
             height: 350px;
-            background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+            background: var(--accent-teal-gradient);
             top: 40%;
             left: 30%;
-            opacity: 0.2;
+            opacity: 0.06;
         }
         
-        /* Grid Pattern Overlay */
         .grid-pattern {
             position: absolute;
             top: 0;
@@ -80,13 +76,12 @@
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 60px 60px;
             z-index: 2;
         }
         
-        /* Main Content Area */
         .content-wrapper {
             flex: 1 1 auto;
             display: flex;
@@ -98,7 +93,6 @@
             z-index: 10;
         }
         
-        /* Logo/Icon */
         .logo-icon {
             margin-bottom: 45px;
             animation: float 3s ease-in-out infinite;
@@ -112,12 +106,12 @@
         .icon-container {
             width: 100px;
             height: 100px;
-            background: linear-gradient(135deg, #14b8a6 0%, #8b5cf6 100%);
+            background: var(--hero-gradient);
             border-radius: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 25px 70px rgba(139, 92, 246, 0.5);
+            box-shadow: var(--shadow-lg);
             position: relative;
         }
         
@@ -125,10 +119,10 @@
             content: '';
             position: absolute;
             inset: -4px;
-            background: linear-gradient(135deg, #14b8a6 0%, #8b5cf6 50%, #06b6d4 100%);
+            background: var(--hero-gradient);
             border-radius: 32px;
             z-index: -1;
-            opacity: 0.6;
+            opacity: 0.3;
             filter: blur(20px);
         }
         
@@ -138,7 +132,6 @@
             fill: white;
         }
         
-        /* Title Section */
         .title-section {
             text-align: center;
             max-width: 1100px;
@@ -150,10 +143,7 @@
             font-weight: 700;
             line-height: 1.15;
             margin-bottom: 35px;
-            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 50%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--text-heading);
             letter-spacing: -1.5px;
         }
         
@@ -161,7 +151,7 @@
             font-size: 24px;
             font-weight: 400;
             line-height: 1.6;
-            color: #cbd5e1;
+            color: var(--text-secondary);
             margin-bottom: 40px;
             max-width: 900px;
             margin-left: auto;
@@ -172,50 +162,46 @@
             font-size: 28px;
             font-weight: 600;
             line-height: 1.5;
-            background: linear-gradient(135deg, #14b8a6 0%, #06b6d4 50%, #8b5cf6 100%);
+            background: var(--hero-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 0.5px;
         }
         
-        /* Decorative Divider */
         .divider {
             width: 140px;
             height: 4px;
-            background: linear-gradient(90deg, #14b8a6 0%, #8b5cf6 100%);
+            background: var(--hero-gradient);
             margin: 50px auto 0;
             border-radius: 2px;
-            box-shadow: 0 0 25px rgba(20, 184, 166, 0.6);
         }
         
-        /* Footer */
         .footer {
             flex: 0 0 auto;
             padding: 28px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid var(--border);
             position: relative;
             z-index: 10;
         }
         
         .page-number {
             font-size: 15px;
-            color: #64748b;
+            color: var(--text-muted);
             font-weight: 500;
         }
         
         .presentation-title {
             font-size: 14px;
-            color: #64748b;
+            color: var(--text-muted);
             font-weight: 400;
             max-width: 600px;
             text-align: right;
         }
         
-        /* Responsive Adjustments */
         @media (max-height: 750px) {
             .main-title { font-size: 58px; margin-bottom: 28px; }
             .subtitle { font-size: 20px; margin-bottom: 32px; }
@@ -229,7 +215,6 @@
 </head>
 <body>
     <div class="slide-container">
-        <!-- Background Elements -->
         <div class="bg-decoration">
             <div class="gradient-orb orb-1"></div>
             <div class="gradient-orb orb-2"></div>
@@ -237,9 +222,7 @@
         </div>
         <div class="grid-pattern"></div>
         
-        <!-- Main Content -->
         <div class="content-wrapper">
-            <!-- Logo Icon -->
             <div class="logo-icon">
                 <div class="icon-container">
                     <svg class="icon-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -248,7 +231,6 @@
                 </div>
             </div>
             
-            <!-- Title Content -->
             <div class="title-section">
                 <h1 class="main-title">From Hash to Intelligence</h1>
                 <p class="subtitle">Transforming Bitcoin Mining Infrastructure into High-Performance AI Inference Centers</p>
@@ -258,7 +240,6 @@
             </div>
         </div>
         
-        <!-- Footer -->
         <div class="footer">
             <span class="page-number">1 / 12</span>
             <span class="presentation-title">Crypto-to-AI Infrastructure Transformation</span>
